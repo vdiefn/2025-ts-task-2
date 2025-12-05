@@ -129,6 +129,7 @@ const saveProduct = async () => {
     closeModal()
   } catch (error) {
     alert('新增/編輯產品失敗')
+    console.error(error)
   } finally {
     isLoading.value = false
     emit('get-products')

@@ -58,6 +58,7 @@ const getProducts = async () => {
     pagination.value = res.data.pagination
   } catch (error) {
     alert('取得產品列表失敗')
+    console.error(error)
   }
 }
 onMounted(() => {
@@ -108,6 +109,7 @@ const handleDeleteProduct = async (productId:string):Promise<void> => {
     await apiDeleteProduct(productId)
   } catch (error) {
     alert('刪除商品失敗')
+    console.error(error)
   } finally {
     getProducts()
   }
@@ -189,7 +191,7 @@ const handleDeleteProduct = async (productId:string):Promise<void> => {
               <span aria-hidden="true">&laquo;</span>
             </button>
           </li>
-          <li v-for="pageNum in pagination?.total_pages" class="page-item">
+          <li v-for="(pageNum,index) in pagination?.total_pages" :key="index" class="page-item">
             <button
               @click="currentPage = pageNum.toString()"
               :disabled="currentPage === pageNum.toString()"
