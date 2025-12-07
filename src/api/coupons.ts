@@ -1,6 +1,13 @@
-import type { GetCouponResponse, CreateCouponParams, CreateCouponResponse, EditCouponParams, EditCouponResponse, DeleteCouponResponse } from "@/types/coupons";
-import type { AxiosResponse } from "axios";
-import axios from "axios";
+import type {
+  GetCouponResponse,
+  CreateCouponParams,
+  CreateCouponResponse,
+  EditCouponParams,
+  EditCouponResponse,
+  DeleteCouponResponse,
+} from '@/types/coupons'
+import type { AxiosResponse } from 'axios'
+import axios from 'axios'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_PATH = import.meta.env.VITE_API_PATH
@@ -33,19 +40,25 @@ couponApi.interceptors.response.use(
   },
 )
 
-export const apiGetCoupons = (params:{ page?: string }):Promise<AxiosResponse<GetCouponResponse<string>>> => {
+export const apiGetCoupons = (params: {
+  page?: string
+}): Promise<AxiosResponse<GetCouponResponse<string>>> => {
   return couponApi.get(`/v2/api/${API_PATH}/admin/coupons`, { params })
 }
 
-export const apiCreateCoupon = (params: CreateCouponParams):Promise<AxiosResponse<CreateCouponResponse>> => {
-  return couponApi.post(`/v2/api/${API_PATH}/admin/coupons`, { data:params })
+export const apiCreateCoupon = (
+  params: CreateCouponParams,
+): Promise<AxiosResponse<CreateCouponResponse>> => {
+  return couponApi.post(`/v2/api/${API_PATH}/admin/coupon`, { data: params })
 }
 
-export const apiEditCoupon = (params: EditCouponParams): Promise<AxiosResponse<EditCouponResponse>> => {
+export const apiEditCoupon = (
+  params: EditCouponParams,
+): Promise<AxiosResponse<EditCouponResponse>> => {
   const { id, data } = params
-  return couponApi.put(`/v2/api/${API_PATH}/admin/coupons/${id}`, { data })
+  return couponApi.put(`/v2/api/${API_PATH}/admin/coupon/${id}`, { data })
 }
 
-export const apiDeleteCoupon = (couponId: string):Promise<AxiosResponse<DeleteCouponResponse>> => {
-  return couponApi.delete(`/v2/api/${API_PATH}/admin/coupons/${couponId}`)
+export const apiDeleteCoupon = (couponId: string): Promise<AxiosResponse<DeleteCouponResponse>> => {
+  return couponApi.delete(`/v2/api/${API_PATH}/admin/coupon/${couponId}`)
 }

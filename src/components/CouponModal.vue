@@ -1,22 +1,22 @@
 <script lang="ts" setup>
 import { apiCreateCoupon, apiEditCoupon } from '@/api/coupons';
-import type { CouponData } from '@/types/coupon'
+import { useCouponForm } from "@/composable/useCouponData"
+import type { CouponData } from '@/types/coupons'
 import { Modal } from 'bootstrap'
 
-import { computed, onMounted, onUnmounted, ref, useTemplateRef } from 'vue'
+import { computed, onMounted, onUnmounted, ref, useTemplateRef, watch } from 'vue'
+
+interface CouponModelProps {
+  coupon: CouponData
+}
 
 const emit = defineEmits(['get-coupons'])
 const modalRef = useTemplateRef<HTMLElement>('modalRef')
 let modal:Modal|null = null
+const { coupon } = defineProps<CouponModelProps>()
 const isEditMode = computed(() => Boolean(coupon.id))
 const isLoading = ref(false)
-const form = ref<CouponData>({
-  id:"",
-  title:"",
-  percent:0,
-  due_date:0,
-  is_enabled:0
-})
+const { form, formTitle, loadCoupon} = useCouponForm()
 
 const openModal = () => {
   if (modal) {
@@ -31,19 +31,20 @@ const closeModal = () => {
 }
 
 const handleSaveCoupon = async () => {
-  const { id, ...couponData } = form.value
+  const { id, ...data } = form.value
 
   isLoading.value = true
 
   try {
     if (isEditMode.value && id) {
-      await apiEditCoupon({ couponData, id })
+      await apiEditCoupon({ data, id })
     } else {
-      await apiCreateCoupon(couponData)
+      await apiCreateCoupon(data)
     }
+
     closeModal()
   } catch (error) {
-    alert('新增/編輯產品失敗')
+    alert('新增/編輯優惠券失敗')
     console.error(error)
   } finally {
     isLoading.value = false
@@ -67,6 +68,19 @@ onUnmounted(() => {
     modal.dispose()
   }
 })
+
+watch(
+  () => coupon,
+  (newVal) => {
+    if (newVal && newVal.id) {
+      loadCoupon(newVal)
+    } else {
+      loadCoupon(null)
+    }
+  },
+  { immediate: true }
+)
+
 </script>
 
 <template>
@@ -92,9 +106,10 @@ onUnmounted(() => {
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <form>
-                <div class="mb-3">
+                <div class="row">
+                  <div class="col-6 mb-3">
                   <label for="couponName" class="form-label">優惠券名稱</label>
                   <input
                     v-model="form.title"
@@ -102,6 +117,16 @@ onUnmounted(() => {
                     class="form-control rounded-lg"
                     id="couponName"
                   />
+                </div>
+                <div class="col-6 mb-3">
+                  <label for="couponName" class="form-label">優惠碼</label>
+                  <input
+                    v-model="form.code"
+                    type="text"
+                    class="form-control rounded-lg"
+                    id="couponCode"
+                  />
+                </div>
                 </div>
                 <div class="row">
                   <div class="col-6 mb-3">
@@ -114,12 +139,12 @@ onUnmounted(() => {
                     />
                   </div>
                   <div class="col-6 mb-3">
-                    <label for="productPrice" class="form-label">到期日</label>
+                    <label for="couponDueDate" class="form-label">到期日</label>
                     <input
-                      v-model="form.price"
+                      v-model="form.due_date"
                       type="number"
                       class="form-control rounded-lg"
-                      id="productPrice"
+                      id="couponDueDate"
                     />
                   </div>
                 </div>

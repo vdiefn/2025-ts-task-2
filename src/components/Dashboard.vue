@@ -14,6 +14,7 @@ const checkLoginStatus = async () => {
     await apiCheckLoginStatus()
   } catch (error) {
     alert('請重新登入')
+    console.error(error)
     router.push('/login')
   } finally {
     isSuccess.value = true

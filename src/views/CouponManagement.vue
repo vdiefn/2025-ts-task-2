@@ -7,7 +7,17 @@ import CouponModal from "@/components/CouponModal.vue"
 
 const deleteModalRef = useTemplateRef<InstanceType<typeof DeleteModal>>('deleteModalRef')
 const couponModalRef = useTemplateRef<InstanceType<typeof CouponModal>>('couponModalRef')
-const tempCoupon = ref<CouponData>(getInitialProductData())
+
+const getInitialCouponData = ():CouponData => ({
+  id:"",
+  due_date: 0,
+  is_enabled: 0,
+  percent: 0,
+  title: "",
+  code:""
+})
+
+const tempCoupon = ref<CouponData>(getInitialCouponData())
 const currentPage = ref<string>('1')
 const coupons = ref<CouponData[]>([])
 const pagination = ref<Pagination>({
@@ -35,13 +45,16 @@ const handleDeleteCoupon = async(id:string):Promise<void> => {
   } catch(error){
     alert('刪除優惠券失敗')
     console.error(error)
+  }finally {
+    getCoupons()
   }
 }
 
-const openModal = (product:CouponData | null = null):void => {
-  if (product) {
-    couponModalRef.value?.openModal()
+const openModal = (coupon:CouponData | null = null):void => {
+  if (coupon) {
+    tempCoupon.value = {...coupon}
   }
+  couponModalRef.value?.openModal()
 }
 
 const openDeleteModal = (productId:string):void => {
@@ -66,6 +79,7 @@ onMounted(() => {
           <thead>
             <tr>
               <th scope="col">優惠券名稱</th>
+              <th scope="col">優惠碼</th>
               <th scope="col">優惠%數</th>
               <th scope="col">到期日</th>
               <th scope="col">啟用</th>
@@ -75,6 +89,7 @@ onMounted(() => {
           <tbody>
             <tr v-for="coupon in coupons" :key="coupon.id">
               <td>{{ coupon.title }}</td>
+              <td>{{ coupon.code }}</td>
               <td>{{ coupon.percent }}</td>
               <td>{{ coupon.due_date }}</td>
               <td>{{ coupon.is_enabled }}</td>
@@ -155,6 +170,6 @@ onMounted(() => {
     </div>
   </div>
 
-  <CouponModal ref="couponModalRef" :product="tempCoupon" @get-products="getCoupons" />
+  <CouponModal ref="couponModalRef" :coupon="tempCoupon" @get-coupons="getCoupons" />
   <DeleteModal ref="deleteModalRef" title="刪除優惠券" content="確定要刪除該優惠券嗎？" />
 </template>

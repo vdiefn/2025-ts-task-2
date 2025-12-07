@@ -7,36 +7,36 @@ export type Pagination = {
 }
 
 export type CouponData = {
-  id?:string,
-  due_date: number,
-  is_enabled: number,
-  percent: number,
-  title: string,
+  id: string
+  due_date: number
+  is_enabled: number
+  percent: number
+  title: string
+  code: string
 }
 
-
 export type GetCouponResponse<T> = {
-  success: boolean,
-  coupons: CouponData[],
-  pagination: Pagination,
+  success: boolean
+  coupons: CouponData[]
+  pagination: Pagination
   messages: T[]
 }
 
 export type CreateCouponParams = {
-  title: string,
-  is_enabled: number,
-  percent: number,
-  due_date: number,
+  title: string
+  is_enabled: number
+  percent: number
+  due_date: number
   code: string
 }
 
 export type EditCouponParams = {
-  id: string,
+  id: string
   data: {
-    title: string,
-    is_enabled: number,
-    percent: number,
-    due_date: number,
+    title: string
+    is_enabled: number
+    percent: number
+    due_date: number
     code: string
   }
 }

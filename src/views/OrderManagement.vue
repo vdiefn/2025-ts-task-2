@@ -46,6 +46,7 @@ const getOrders = async () => {
     pagination.value = res.data.pagination
   } catch (error) {
     alert('取得訂單列表失敗')
+    console.error(error)
   }
 }
 onMounted(() => {
@@ -61,10 +62,12 @@ const openDeleteModal = (orderId: string) => {
   deleteModalRef.value?.openModal(() => deleteOrder(orderId))
 }
 
+
 const deleteOrder = async (orderId: string) => {
   try {
     await apiDeleteOrder(orderId)
   } catch (error) {
+    console.error(error)
     alert('刪除訂單失敗')
   } finally {
     getOrders()
@@ -135,7 +138,7 @@ const deleteOrder = async (orderId: string) => {
               <span aria-hidden="true">&laquo;</span>
             </button>
           </li>
-          <li v-for="pageNum in pagination?.total_pages" class="page-item">
+          <li v-for="(pageNum, index) in pagination?.total_pages" :key="index" class="page-item">
             <button
               @click="currentPage = pageNum.toString()"
               :disabled="currentPage === pageNum.toString()"
