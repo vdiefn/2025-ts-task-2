@@ -1,9 +1,18 @@
 import type { CouponData } from '@/types/coupons'
 import { ref } from 'vue'
 
-const getInitialCouponData = (): CouponData => ({
+type CouponFormData = {
+  id: string,
+  due_date: string,
+  is_enabled: number,
+  percent: number,
+  title: string,
+  code: string,
+}
+
+const getInitialCouponData = (): CouponFormData => ({
   id: '',
-  due_date: 0,
+  due_date: "",
   is_enabled: 0,
   percent: 0,
   title: '',
@@ -11,17 +20,18 @@ const getInitialCouponData = (): CouponData => ({
 })
 
 export function useCouponForm() {
-  const form = ref<CouponData>(getInitialCouponData())
+  const form = ref<CouponFormData>(getInitialCouponData())
   const formTitle = ref('新增優惠券')
 
   const loadCoupon = (data: CouponData | null): void => {
-    console.log(data)
     if (data) {
-      console.log('編輯')
-      form.value = { ...data }
+      form.value = {
+        ...data,
+        due_date:new Date(data.due_date * 1000).toISOString().slice(0, 10)
+      }
+
       formTitle.value = '編輯優惠券'
     } else {
-      console.log('新增')
       resetForm()
     }
   }

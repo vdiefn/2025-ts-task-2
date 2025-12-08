@@ -31,7 +31,11 @@ const closeModal = () => {
 }
 
 const handleSaveCoupon = async () => {
-  const { id, ...data } = form.value
+  const payload = {
+    ...form.value,
+    due_date: Math.floor(new Date(form.value.due_date).getTime() / 1000)
+  }
+  const { id, ...data } = payload
 
   isLoading.value = true
 
@@ -41,7 +45,6 @@ const handleSaveCoupon = async () => {
     } else {
       await apiCreateCoupon(data)
     }
-
     closeModal()
   } catch (error) {
     alert('新增/編輯優惠券失敗')
@@ -142,7 +145,7 @@ watch(
                     <label for="couponDueDate" class="form-label">到期日</label>
                     <input
                       v-model="form.due_date"
-                      type="number"
+                      type="date"
                       class="form-control rounded-lg"
                       id="couponDueDate"
                     />

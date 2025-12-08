@@ -88,7 +88,7 @@ onMounted(() => {
                 <th scope="col">優惠碼</th>
                 <th scope="col">優惠%數</th>
                 <th scope="col">到期日</th>
-                <th scope="col">啟用</th>
+                <th scope="col" class="text-center">啟用</th>
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -97,8 +97,9 @@ onMounted(() => {
                 <td>{{ coupon.title }}</td>
                 <td>{{ coupon.code }}</td>
                 <td>{{ coupon.percent }}</td>
-                <td>{{ coupon.due_date }}</td>
-                <td>{{ coupon.is_enabled }}</td>
+                <td>
+                  {{ new Date(coupon.due_date * 1000).toLocaleDateString().slice(0, 10) }}
+                </td>
                 <td class="text-center">
                   <div
                     class="form-check form-switch d-flex justify-content-center align-items-center"
