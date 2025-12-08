@@ -16,7 +16,7 @@ let modal:Modal|null = null
 const { coupon } = defineProps<CouponModelProps>()
 const isEditMode = computed(() => Boolean(coupon.id))
 const isLoading = ref(false)
-const { form, formTitle, loadCoupon} = useCouponForm()
+const { form, formTitle, loadCoupon, resetForm} = useCouponForm()
 
 const openModal = () => {
   if (modal) {
@@ -27,6 +27,7 @@ const openModal = () => {
 const closeModal = () => {
   if (modal) {
     modal.hide()
+    resetForm()
   }
 }
 
@@ -81,7 +82,7 @@ watch(
       loadCoupon(null)
     }
   },
-  { immediate: true }
+  { immediate: true, deep: true }
 )
 
 </script>

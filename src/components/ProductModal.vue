@@ -68,10 +68,11 @@ const openModal = () => {
 const closeModal = () => {
   if (modal) {
     modal.hide()
+    resetForm()
   }
 }
 
-const { form, formTitle, loadProduct } = useProductForm()
+const { form, formTitle, loadProduct, resetForm } = useProductForm()
 
 const {
   uploadedImages,
