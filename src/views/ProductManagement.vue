@@ -23,7 +23,7 @@ import ProductModal from '@/components/ProductModal.vue'
 // TODO: 匯入型別定義
 // 提示：從 @/types/product 匯入 Pagination, ProductData
 import type { Pagination, ProductData } from '@/types/product'
-import { onMounted, ref, useTemplateRef } from 'vue'
+import { onMounted, ref, useTemplateRef, computed } from 'vue'
 
 import DefaultContainer from "@/components/DefaultContainer.vue"
 
@@ -50,6 +50,13 @@ const pagination = ref<Pagination>({
   category: '',
 })
 const loading = ref(false)
+const keyword = ref("")
+const filterProducts = computed(() => {
+  const key = keyword.value.trim().toLowerCase()
+  if (!key) return products.value
+
+  return products.value.filter(item => item.title.toLowerCase().includes(key))
+})
 
 const getProducts = async () => {
   loading.value = true
@@ -125,8 +132,9 @@ const handleDeleteProduct = async (productId:string):Promise<void> => {
 <template>
 
 
-  <div class="d-flex justify-content-end align-items-center mb-4">
-    <button @click="openModal(null)" type="button" class="btn btn-dark rounded-lg px-4 py-2">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <input type=text v-model="keyword" class="rounded-1 ps-3" placeholder="請輸入優惠券關鍵字" />
+    <button @click="openModal(null)" type="button" class="btn btn-dark rounded-lg px-4 py-2" :disabled="loading">
       <i class="fas fa-plus me-2"></i>新增商品
     </button>
   </div>
@@ -147,7 +155,7 @@ const handleDeleteProduct = async (productId:string):Promise<void> => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="product in products" :key="product.id">
+              <tr v-for="product in filterProducts" :key="product.id">
                 <td>{{ product.category }}</td>
                 <td>{{ product.title }}</td>
                 <td>{{ product.origin_price }}</td>

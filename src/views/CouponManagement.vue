@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { apiGetCoupons, apiDeleteCoupon } from '@/api/coupons';
 import type { Pagination, CouponData } from "@/types/coupons"
-import { onMounted, ref, useTemplateRef } from "vue"
+import { onMounted, ref, useTemplateRef, computed } from "vue"
 import DeleteModal from '@/components/DeleteModal.vue'
 import CouponModal from "@/components/CouponModal.vue"
 import DefaultContainer from "@/components/DefaultContainer.vue"
@@ -9,6 +9,7 @@ import DefaultContainer from "@/components/DefaultContainer.vue"
 const deleteModalRef = useTemplateRef<InstanceType<typeof DeleteModal>>('deleteModalRef')
 const couponModalRef = useTemplateRef<InstanceType<typeof CouponModal>>('couponModalRef')
 const loading = ref(false)
+const keyword = ref("")
 
 const getInitialCouponData = ():CouponData => ({
   id:"",
@@ -28,6 +29,13 @@ const pagination = ref<Pagination>({
   has_pre: false,
   has_next: false,
   category: '',
+})
+
+const filterCoupons = computed(() => {
+  const key = keyword.value.trim().toLowerCase()
+  if (!key) return coupons.value
+
+  return coupons.value.filter(item => item.title.toLowerCase().includes(key))
 })
 
 const getCoupons = async() => {
@@ -72,9 +80,11 @@ onMounted(() => {
 
 </script>
 <template>
-  <div class="d-flex justify-content-end align-items-center mb-4">
-    <button @click="openModal(null)" type="button" class="btn btn-dark rounded-lg px-4 py-2">
-      <i class="fas fa-plus me-2"></i>新增優惠券
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <input type=text v-model="keyword" class="rounded-1 ps-3" placeholder="請輸入優惠券關鍵字" />
+    <button @click="openModal(null)" type="button" class="btn btn-dark rounded-lg px-4 py-2" :disabled="loading">
+      <i class="fas fa-plus me-2"></i>
+      新增優惠券
     </button>
   </div>
   <DefaultContainer :loading="loading">
@@ -93,7 +103,7 @@ onMounted(() => {
               </tr>
             </thead>
             <tbody>
-              <tr v-for="coupon in coupons" :key="coupon.id">
+              <tr v-for="coupon in filterCoupons" :key="coupon.id">
                 <td>{{ coupon.title }}</td>
                 <td>{{ coupon.code }}</td>
                 <td>{{ coupon.percent }}</td>
