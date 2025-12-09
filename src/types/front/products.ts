@@ -13,8 +13,20 @@ export type ProductsData = {
   unit: number
 }
 
-export type GetProductsResponse = {
+export type Pagination = {
+  total_pages: number,
+  current_page: number,
+  has_pre:boolean,
+  has_next:boolean,
+  category:string
+}
+
+export type GetAllProductsResponse = {
   success: boolean,
   products: ProductsData[],
   messages: string[]
+}
+
+export type GetProductsResponse = GetAllProductsResponse & {
+  pagination: Pagination
 }

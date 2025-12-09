@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { GetProductsResponse } from "@/types/front/products";
+import type { GetProductsResponse, GetAllProductsResponse } from "@/types/front/products";
 import type { AxiosResponse } from "axios"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -9,6 +9,11 @@ const api = axios.create({
   baseURL: BASE_URL,
 })
 
-export const reqAllProducts = ():Promise<AxiosResponse<GetProductsResponse>> => api.get(`/v2/api/${API_PATH}/products/all`)
+export const reqAllProducts = ():Promise<AxiosResponse<GetAllProductsResponse>> => api.get(`/v2/api/${API_PATH}/products/all`)
 
-export const reqProducts = (page:number, category:string):Promise<AxiosResponse<GetProductsResponse>> => api.get(`/v2/api/${API_PATH}/products?=${page}&category?=${category}`)
+export const reqProducts = (page:number, category:string):Promise<AxiosResponse<GetProductsResponse>> => api.get(`/v2/api/${API_PATH}/products`, {
+  params: {
+      page,
+      category
+    }
+})
