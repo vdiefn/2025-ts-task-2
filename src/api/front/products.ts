@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { GetProductsResponse, GetAllProductsResponse } from "@/types/front/products";
+import type { GetProductsResponse, GetAllProductsResponse, GetProductDetail } from "@/types/front/products";
 import type { AxiosResponse } from "axios"
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -17,3 +17,5 @@ export const reqProducts = (page:number, category:string):Promise<AxiosResponse<
       category
     }
 })
+
+export const reqProductDetail = (id:string):Promise<AxiosResponse<GetProductDetail>> => api.get(`/v2/api/${API_PATH}/product/${id}`)
