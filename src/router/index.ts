@@ -32,10 +32,15 @@ const router = createRouter({
       component: () => import("@/views/FrontLayout.vue"),
       children: [
         {
-          path: "homepage",
-          component: () => import("@/views/front/HomePage.vue"),
+          path: "",
+          component: () => import("@/components/front/HomePage.vue"),
           name:"homepage"
-        }
+        },
+        {
+          path: "all-product",
+          component: () => import("@/components/front/AllProducts.vue"),
+          name:"all-product"
+        },
       ]
     },
     {

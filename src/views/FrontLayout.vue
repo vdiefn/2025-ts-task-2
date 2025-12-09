@@ -1,15 +1,18 @@
 <script lang="ts" setup>
-  import Header from "./front/HeaderPage.vue"
-  import HomePage from "./front/HomePage.vue";
-  import Footer from "./front/FooterPage.vue"
+  import Header from "@/components/front/HeaderPage.vue"
+  import Footer from "@/components/front/FooterPage.vue"
+  import { RouterView } from "vue-router";
 
 </script>
+
 <template>
   <Header></Header>
-  <HomePage></HomePage>
+  <main>
+    <RouterView></RouterView>
+  </main>
   <Footer></Footer>
-
 </template>
+
 <style lang="scss" scoped>
 
 </style>
