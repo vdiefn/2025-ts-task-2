@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed, watch } from "vue"
 import { reqProducts } from "@/api/front/products";
-import type { ProductsData } from "@/types/front/products";
+import type { ProductData } from "@/types/front/products";
 import { useRoute, useRouter } from "vue-router"
 
 const currentPage = ref(1)
 const totalPages = ref(1)
 const category = computed(() => route.query.category as string || "")
-const products = ref<ProductsData[]>([])
+const products = ref<ProductData[]>([])
 const route = useRoute()
 const router = useRouter()
 
@@ -101,21 +101,25 @@ watch(
       <div class="col-md-8">
         <div class="row">
           <template v-if="products.length > 0">
-            <div class="col-md-6" v-for="product in products" :key="product.id">
-              <div class="card border-0 mb-4 position-relative position-relative">
-                <img style="height: 320px;"
-                  :src="product.imageUrl"
-                  class="card-img-top object-fit-cover rounded-0" alt="product image">
-                <a href="#" class="text-dark">
-                  <i class="far fa-heart position-absolute" style="right: 16px; top: 16px"></i>
-                </a>
-                <div class="card-body p-0">
-                  <h4 class="mb-0 mt-3">{{ product.title }}</h4>
-                  <p class="card-text mb-0">NT${{product.price}} <span class="text-muted "><del>NT${{ product.origin_price }}</del></span></p>
-                  <p class="text-muted mt-3"></p>
-                </div>
+
+              <div class="col-md-6" v-for="product in products" :key="product.id">
+                <RouterLink :to="{ name:'product-detail', params: { id: product.id} }" class="text-decoration-none">
+                  <div class="card border-0 mb-4 position-relative position-relative">
+                    <img style="height: 320px;"
+                      :src="product.imageUrl"
+                      class="card-img-top object-fit-cover rounded-0" alt="product image">
+                    <a href="#" class="text-dark">
+                      <i class="far fa-heart position-absolute" style="right: 16px; top: 16px"></i>
+                    </a>
+                    <div class="card-body p-0">
+                      <h4 class="mb-0 mt-3">{{ product.title }}</h4>
+                      <p class="card-text mb-0">NT${{product.price}} <span class="text-muted "><del>NT${{ product.origin_price }}</del></span></p>
+                      <p class="text-muted mt-3"></p>
+                    </div>
+                  </div>
+                </RouterLink>
               </div>
-            </div>
+
           </template>
           <template v-else>
             <div class="d-flex justify-content-center mt-3 mb-3">

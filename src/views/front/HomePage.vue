@@ -1,10 +1,10 @@
 <script lang="ts" setup>
   import { reqAllProducts } from "@/api/front/products"
   import { onMounted, ref } from "vue"
-  import type { ProductsData } from "@/types/front/products"
+  import type { ProductData } from "@/types/front/products"
 
   const loading = ref(false)
-  const products = ref<ProductsData[]>([])
+  const products = ref<ProductData[]>([])
 
   const handleGetAllProducts = async() => {
     loading.value = true
