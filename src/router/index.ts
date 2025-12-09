@@ -29,18 +29,23 @@ const router = createRouter({
     {
       path: '/home',
       name: 'home',
-      component: () => import("@/views/FrontLayout.vue"),
+      component: () => import("@/views/front/FrontLayout.vue"),
       children: [
         {
           path: "",
-          component: () => import("@/components/front/HomePage.vue"),
+          component: () => import("@/views/front/HomePage.vue"),
           name:"homepage"
         },
         {
-          path: "all-product",
-          component: () => import("@/components/front/AllProducts.vue"),
+          path: "/all-product",
+          component: () => import("@/views/front/AllProducts.vue"),
           name:"all-product"
         },
+        {
+          path: "/product-detail/:id",
+          component: () => import("@/views/front/ProductDetail.vue"),
+          name: "product-detail"
+        }
       ]
     },
     {

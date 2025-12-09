@@ -1,4 +1,4 @@
-export type ProductsData = {
+export type ProductData = {
   category: string,
   content: string,
   description: string,
@@ -23,10 +23,15 @@ export type Pagination = {
 
 export type GetAllProductsResponse = {
   success: boolean,
-  products: ProductsData[],
+  products: ProductData[],
   messages: string[]
 }
 
 export type GetProductsResponse = GetAllProductsResponse & {
   pagination: Pagination
+}
+
+export type GetProductDetail = {
+  product: ProductData,
+  success:boolean
 }
