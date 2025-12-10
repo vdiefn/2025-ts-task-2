@@ -1,4 +1,5 @@
 import Dashboard from '@/components/Dashboard.vue'
+import FrontLayout from '@/views/front/FrontLayout.vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,6 +7,28 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: FrontLayout,
+      children: [
+        {
+          path: '',
+          component: () => import('@/views/front/HomePage.vue'),
+          name: 'homepage',
+        },
+        {
+          path: '/all-product',
+          component: () => import('@/views/front/AllProducts.vue'),
+          name: 'all-product',
+        },
+        {
+          path: '/product-detail/:id',
+          component: () => import('@/views/front/ProductDetail.vue'),
+          name: 'product-detail',
+        },
+      ],
+    },
+    {
+      path: '/admin',
       name: 'dashboard',
       component: Dashboard,
       children: [
@@ -25,28 +48,6 @@ const router = createRouter({
           component: () => import('@/views/CouponManagement.vue'),
         },
       ],
-    },
-    {
-      path: '/home',
-      name: 'home',
-      component: () => import("@/views/front/FrontLayout.vue"),
-      children: [
-        {
-          path: "",
-          component: () => import("@/views/front/HomePage.vue"),
-          name:"homepage"
-        },
-        {
-          path: "/all-product",
-          component: () => import("@/views/front/AllProducts.vue"),
-          name:"all-product"
-        },
-        {
-          path: "/product-detail/:id",
-          component: () => import("@/views/front/ProductDetail.vue"),
-          name: "product-detail"
-        }
-      ]
     },
     {
       path: '/login',
