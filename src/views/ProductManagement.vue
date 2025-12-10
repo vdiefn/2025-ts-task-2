@@ -55,7 +55,9 @@ const filterProducts = computed(() => {
   const key = keyword.value.trim().toLowerCase()
   if (!key) return products.value
 
-  return products.value.filter(item => item.title.toLowerCase().includes(key))
+  return products.value.filter(item => {
+    return item.title.toLowerCase().includes(key) || item.category.toLowerCase().includes(key)
+  })
 })
 
 const getProducts = async () => {
@@ -74,6 +76,8 @@ const getProducts = async () => {
     loading.value = false
   }
 }
+
+
 onMounted(() => {
   getProducts()
 })
@@ -133,7 +137,7 @@ const handleDeleteProduct = async (productId:string):Promise<void> => {
 
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <input type=text v-model="keyword" class="rounded-1 ps-3" placeholder="請輸入優惠券關鍵字" />
+    <input type=text v-model="keyword" class="rounded-1 ps-3" placeholder="請輸入商品名稱或分類" />
     <button @click="openModal(null)" type="button" class="btn btn-dark rounded-lg px-4 py-2" :disabled="loading">
       <i class="fas fa-plus me-2"></i>新增商品
     </button>

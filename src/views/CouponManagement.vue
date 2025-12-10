@@ -35,7 +35,9 @@ const filterCoupons = computed(() => {
   const key = keyword.value.trim().toLowerCase()
   if (!key) return coupons.value
 
-  return coupons.value.filter(item => item.title.toLowerCase().includes(key))
+  return coupons.value.filter(item => {
+    return item.title.toLowerCase().includes(key) || item.code.toLowerCase().includes(key)
+  })
 })
 
 const getCoupons = async() => {
