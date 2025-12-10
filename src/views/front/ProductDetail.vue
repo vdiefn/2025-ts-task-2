@@ -40,17 +40,17 @@ onMounted(() => {
         <div class="carousel-container carousel-inner">
           <div class="carousel-item active">
             <img
+              :src="product?.imageUrl"
+              class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img
               :src="product?.imagesUrl[0]"
               class="d-block w-100" alt="...">
           </div>
           <div class="carousel-item">
             <img
               :src="product?.imagesUrl[1]"
-              class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img
-              :src="product?.imagesUrl[2]"
               class="d-block w-100" alt="...">
           </div>
         </div>
@@ -100,82 +100,6 @@ onMounted(() => {
       <p class="text-muted">{{ product?.description }}</p>
     </div>
   </div>
-  <h3 class="fw-bold">你可能會喜歡的植栽</h3>
-  <!-- <div class="swiper mt-4 mb-5">
-  <div class="swiper-wrapper">
-    <div class="swiper-slide">
-      <div class="card border-0 mb-4 position-relative position-relative">
-        <img
-          src="https://images.unsplash.com/photo-1616220797246-f01f49dd805d?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          class="card-img-top object-fit-cover rounded-0" style="height: 280px;" alt="...">
-        <a href="#" class="text-dark">
-        </a>
-        <div class="card-body p-0">
-          <h4 class="mb-0 mt-3"><a href="#">黃金葛</a></h4>
-          <p class="card-text mb-0">NT$1,080 <span class="text-muted "><del>NT$1,200</del></span></p>
-          <p class="text-muted mt-3"></p>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-slide">
-      <div class="card border-0 mb-4 position-relative position-relative">
-        <img
-          src="https://images.unsplash.com/photo-1616122236015-b37dc314d875?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          class="card-img-top object-fit-cover rounded-0" style="height: 280px;" alt="...">
-        <a href="#" class="text-dark">
-        </a>
-        <div class="card-body p-0">
-          <h4 class="mb-0 mt-3"><a href="#">橡膠樹</a></h4>
-          <p class="card-text mb-0">NT$1,080 <span class="text-muted "><del>NT$1,200</del></span></p>
-          <p class="text-muted mt-3"></p>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-slide">
-      <div class="card border-0 mb-4 position-relative position-relative">
-        <img
-          src="https://images.unsplash.com/photo-1611211232932-da3113c5b960?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          class="card-img-top object-fit-cover rounded-0" style="height: 280px;" alt="...">
-        <a href="#" class="text-dark">
-        </a>
-        <div class="card-body p-0">
-          <h4 class="mb-0 mt-3"><a href="#">虎尾蘭</a></h4>
-          <p class="card-text mb-0">NT$1,080 <span class="text-muted "><del>NT$1,200</del></span></p>
-          <p class="text-muted mt-3"></p>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-slide">
-      <div class="card border-0 mb-4 position-relative position-relative">
-        <img
-          src="https://images.unsplash.com/photo-1675093583860-c88f96dd6801?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDF8fE1vbnN0ZXJhfGVufDB8MHwwfHx8Mg%3D%3D"
-          class="card-img-top object-fit-cover rounded-0" style="height: 280px;" alt="...">
-        <a href="#" class="text-dark">
-        </a>
-        <div class="card-body p-0">
-          <h4 class="mb-0 mt-3"><a href="#">龜背芋</a></h4>
-          <p class="card-text mb-0">NT$1,080 <span class="text-muted "><del>NT$1,200</del></span></p>
-          <p class="text-muted mt-3"></p>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-slide">
-      <div class="card border-0 mb-4 position-relative position-relative">
-        <img
-          src="https://images.unsplash.com/photo-1616694547693-b0f829a6cf30?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          class="card-img-top object-fit-cover rounded-0" style="height: 280px;" alt="...">
-        <a href="#" class="text-dark">
-        </a>
-        <div class="card-body p-0">
-          <h4 class="mb-0 mt-3"><a href="#">白鶴芋</a></h4>
-          <p class="card-text mb-0">NT$1,080 <span class="text-muted "><del>NT$1,200</del></span></p>
-          <p class="text-muted mt-3"></p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div> -->
 </div>
 </template>
 <style lang="scss" scoped>

@@ -34,28 +34,32 @@
       <div class="h-100 d-flex flex-column justify-content-center align-items-center text-white">
         <h2>植感生活</h2>
         <p class="mb-0">專業挑選的室內植栽，打造你的專屬室內綠洲</p>
-        <a href="./product.html" class="btn btn-dark rounded-3 mt-6">來去逛逛</a>
+        <a href="" class="btn btn-dark rounded-3 mt-6">來去逛逛</a>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="row mt-5">
+
       <div class="col-md-4 mt-md-4" v-for="product in products" :key="product.id">
-        <div class="card border-0 mb-4">
-          <img
-            style="height: 300px;"
-            :src="product.imageUrl"
-            class="card-img-top rounded-0 object-fit-cover" alt="product title" />
-          <div class="card-body text-center">
-            <h4>{{ product.title }}</h4>
-            <div class="d-flex justify-content-between">
-              <p class="card-text text-muted mb-0">
-                {{ product.description }}
-              </p>
+        <RouterLink :to="{ name:'product-detail', params: { id: product.id} }" class="text-decoration-none">
+          <div class="card border-0 mb-4">
+            <img
+              style="height: 300px;"
+              :src="product.imageUrl"
+              class="card-img-top rounded-0 object-fit-cover" alt="product title" />
+            <div class="card-body text-center">
+              <h4>{{ product.title }}</h4>
+              <div class="d-flex justify-content-between">
+                <p class="card-text text-muted mb-0">
+                  {{ product.description }}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </RouterLink>
       </div>
+
     </div>
   </div>
   <div class="bg-light mt-7">
@@ -81,7 +85,7 @@
         <p class="text-muted">我們精心挑選適合室內環境的植栽，並搭配設計感十足的盆器，讓每一株植物不只是綠意，更是空間中的擺飾亮點。</p>
       </div>
     </div>
-    <div class="row flex-row-reverse justify-content-between mt-4">
+    <div class="row flex-row-reverse justify-content-between mt-4 mb-4">
       <div class="col-md-6">
         <img src="@/assets/images/home-2-2.png" alt="home-2" class="img-fluid">
       </div>
