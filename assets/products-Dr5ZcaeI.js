@@ -1,0 +1,1 @@
+import{p as e}from"./index-0U5cSJyf.js";const r="https://ec-course-api.hexschool.io/",s="ifjewelrystyle",o=e.create({baseURL:r}),p=()=>o.get(`/v2/api/${s}/products/all`),i=(t,a)=>o.get(`/v2/api/${s}/products`,{params:{page:t,category:a}}),l=t=>o.get(`/v2/api/${s}/product/${t}`);export{i as a,l as b,p as r};
