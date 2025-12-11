@@ -36,7 +36,7 @@ const pagination = ref<Pagination>({
   category: '',
 })
 
-const getOrders = async () => {
+const getOrders = async ():Promise<void> => {
   try {
     const res = await apiGetOrders({
       page: currentPage.value,
@@ -53,17 +53,17 @@ onMounted(() => {
   getOrders()
 })
 
-const openModal = (order: Order) => {
+const openModal = (order: Order):void => {
   tempOrder.value = order
   orderDetailModalRef.value?.openModal()
 }
 
-const openDeleteModal = (orderId: string) => {
+const openDeleteModal = (orderId: string):void => {
   deleteModalRef.value?.openModal(() => deleteOrder(orderId))
 }
 
 
-const deleteOrder = async (orderId: string) => {
+const deleteOrder = async (orderId: string):Promise<void> => {
   try {
     await apiDeleteOrder(orderId)
   } catch (error) {

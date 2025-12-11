@@ -40,7 +40,7 @@ const filterCoupons = computed(() => {
   })
 })
 
-const getCoupons = async() => {
+const getCoupons = async():Promise<void> => {
   loading.value = true
   try{
     const res = await apiGetCoupons({page: currentPage.value})

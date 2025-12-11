@@ -137,7 +137,6 @@ const handleDeleteProduct = async (productId:string):Promise<void> => {
 
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <input type=text v-model="keyword" class="rounded-1 ps-3" placeholder="請輸入商品名稱或分類" />
     <button @click="openModal(null)" type="button" class="btn btn-dark rounded-lg px-4 py-2" :disabled="loading">
       <i class="fas fa-plus me-2"></i>新增商品
     </button>
